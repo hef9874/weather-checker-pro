@@ -82,6 +82,7 @@ p{
     padding: 5px;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 10pt;
+    border-radius: 4px;
 }
 
 #btn{
