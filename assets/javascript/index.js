@@ -1,28 +1,60 @@
-var apiKey = "8cb12ab65dcc090cdebeed935aba8314";
+const apiKey = "8cb12ab65dcc090cdebeed935aba8314";
+const location = document.getElementById('input');
+let searchButton = document.getElementById('search');
+let currentForecast = document.getElementById('location');
+let searchHistory = document.getElementById('history');
+let weekForecast = document.getElementById('days');
+const apiUrl = "https://api.openweathermap.org/";
+let searchHistoryArr = [];
 
-$(function(){
-    getSearchHistory();
-    var btnSearch = $('.submit');
-    txtSearch = $('.search');
-
- //Search Button to find city
-    btnSearch.on('click', searchResults);
-    textSearch.on('keyup', (event) => {
-        if (event.key === 'Enter') {
-            displaySearch();
+//get info for day
+function currentDayInfo(city) {
+    //call API and get returning data
+    let urlDay = apiUrl + 'data/2.5/weather?q=' + city + '&appid=' + apiKey;
+    fetch(urlDay).then(function(response){
+        if(response.ok){
+            return response.json().then(function(data){
+                console.log(data);
+                displayCurrentDay(data);
+            })
+        } else {
+            alert('Error ' + response.statusText);
         }
     })
-)};
+}
 
-searchResults(() => {
-//get today's date
+function displayCurrentDay(data) {
+    //take data from API and put into HTML 
+    //make API call 'https://api.openweathermap.org/data/2.5/forecast?lat=' + data[0].lat + '&lon=' + data[0].lon + '&units=imperial&appid=' + APIKey;
+    //use return to show uv index
+}
 
+function fiveDayForecast(city){
+    //call API and get returning data 
 
-//fetch(queryCity) for city lat and lon to pull weather 
+}
 
+function displayFiveDay(data){
+    //take data from API and put into HTML - no call
 
-//put in city coords and get weather
-//'https://api.openweathermap.org/data/2.5/forecast?lat=' + data[0].lat + '&lon=' + data[0].lon + '&units=imperial&appid=' + APIKey;
+}
 
+function clearPrevious(){
+    //call different HTML elements and empty/clear
+}
 
+searchButton.addEventListener('click', function(e){
+    e.preventDefault()
+    //save searchcity to history array 
+    //save searchhistarr to local storage JSON
+    //call functions that get forecast for current and 5 day
 })
+
+searchHistory.addEventListener('click', function(){
+    //event.target - figure out which button is clicked
+    //get city value 
+    //call functions that get forecast for current and 5 day
+})
+
+
+
