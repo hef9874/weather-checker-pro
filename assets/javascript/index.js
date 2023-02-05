@@ -1,4 +1,5 @@
 const apiKey = "8cb12ab65dcc090cdebeed935aba8314";
+
 const location = document.getElementById('input');
 let searchButton = document.getElementById('search');
 let currentForecast = document.getElementById('location');
@@ -22,21 +23,32 @@ function currentDayInfo(city) {
         }
     })
 }
-
-function displayCurrentDay(data) {
     //take data from API and put into HTML 
-    //make API call 'https://api.openweathermap.org/data/2.5/forecast?lat=' + data[0].lat + '&lon=' + data[0].lon + '&units=imperial&appid=' + APIKey;
-    //use return to show uv index
-}
+    //make API call 
+
+async function displayCurrentDay() {
+    const latLon = `${apiUrl + data[0].lat}&lon=${data[0].lon}&units=imperial&appid=${apiKey}`;
+    let response = await fetch(latLon);
+    let data = await response.json();
+    let {latitude, longitude} = data;
+    data.textcontent = location;
+    console.log(latitude);
+    console.log(longitude);
+                //use return to show uv index
+
+    return response.json().then(function(data){
+        currentDayInfo(data);
+   })
+
 
 function fiveDayForecast(city){
     //call API and get returning data 
-
+    return textConteweekForecast
 }
 
 function displayFiveDay(data){
     //take data from API and put into HTML - no call
-
+    
 }
 
 function clearPrevious(){
@@ -46,6 +58,7 @@ function clearPrevious(){
 searchButton.addEventListener('click', function(e){
     e.preventDefault()
     //save searchcity to history array 
+    location.json()
     //save searchhistarr to local storage JSON
     //call functions that get forecast for current and 5 day
 })
@@ -55,6 +68,3 @@ searchHistory.addEventListener('click', function(){
     //get city value 
     //call functions that get forecast for current and 5 day
 })
-
-
-
