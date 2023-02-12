@@ -31,31 +31,31 @@ p{
 #container{
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
 }
 
 #search-hist {
-    flex-direction: column;
+    display:flex;
     float:left;
     padding: 30px 15px 0px 0px;
     padding-left: 20px;
     height: 100%;
 }
 
-#location{
+#currentWeather{
     border-color: gray;
     border-style: dashed;
     border-width: 1px;
     width: 65%;
-    float:left;
+    float: right;
     margin: 30px 20px 0px 0px;
     padding: 15px;
 }
 
 #days{
-    flex-wrap: wrap;
     flex-direction: row;
-    position: absolute;
-    display: inline-flex;
+    position: relative;
+    display: inline-block;
     width: 450px;
     margin: 75px 20px 20px 20px;
 }
