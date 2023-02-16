@@ -18,7 +18,6 @@ function currentDayInfo(city) {
             return response.json().then(function(data){
                 console.log(data);
                 displayCurrentDay(data);
-                fiveDayForecast(data.coord.lat, data.coord.lon)
             })
         } else {
             alert('Error ' + response.statusText);
@@ -65,60 +64,46 @@ function displayCurrentDay(data) {
 }
 
 
-function fiveDayForecast(lat, lon, data){
+function fiveDayForecast(city){
     //call API and get returning data 
-    let forecast = apiUrl + `data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+    let forecast = apiUrl + `data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}`;
     fetch(forecast) 
     .then(response => response.json())
     .then((data) => {
         console.log(data)
+        renderData(city, data.list.slice(0,5))
     })
     .catch(error => {
         console.log('Error!');
         console.log(error);
         //pass data.list
-        renderData(data.list)
     })
 }
 
-renderData = (location, forecast) => {
-    const currentWeather = forecast[0].weather[0];
-    const widgetHeader =
-    `<h1>${location}</h1><small>${currentWeather.description}</small>`;
-  
-    CURRENT_TEMP.innerHTML =
-    `<i class="wi ${applyIcon(currentWeather.icon)}"></i>
-    ${Math.round(forecast[0].temp.day)} <i class="wi wi-degrees"></i>`;
-  
-    CURRENT_LOCATION.innerHTML = widgetHeader;
+function renderData(location, forecast) {
+    const days = $('#days')
+    console.log(forecast)
   
     // render each daily forecast
-    forecast.forEach(day => {
-      let date = new Date(day.dt * 1000);
-      let days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
-      let name = days[date.getDay()];
-      let dayBlock = document.createElement("div");
-      dayBlock.innerHTML =
-        `<div class="forecast-item__heading">${name}</div>
-        <div class="forecast-item__info">
-        <i class="wi ${applyIcon(day.weather[0].icon)}"></i>
-        <span class="degrees">${Math.round(day.temp.day)}
-        <i class="wi wi-degrees"></i></span></div>`;
-      forecast.appendChild(dayBlock);
+    forecast.forEach(date => {
+      const day = $('<div>')
+        day.html(`
+        <div class="card">
+        <img src="http://openweathermap.org/img/w/${date.weather[0].icon}.png" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">${date.dt_txt.split(' ')[0]}</h5>
+            <p class="card-text"><b>Temperature</b>: ${date.main.temp}</p>
+            <p class="card-text"><b>Humidity</b>: ${date.main.humidity}</p>
+            <p class="card-text"><b>Wind</b>: ${date.wind.speed}</p>
+        </div>
+        </div>
+
+        `)
+
+      days.append(day);
     });
   }
-// function displayFiveDay(data){
-// //forloop
 // //take data from API and put into HTML - no call
-
-// }
-fiveDayForecast()
-.then(weatherData => {
-    let city = weatherData.city.name;
-    let dailyForecast = weatherData.list;
-  
-    renderData(city, dailyForecast);
-});
 
 searchButton.addEventListener('click', function(e){
     e.preventDefault()
@@ -132,7 +117,7 @@ searchButton.addEventListener('click', function(e){
 })
 
 searchHistory.addEventListener('click', function(e){
-    const whichButton = e.target.getAttribute(button);
+    const whichButton = e.target.getAttribute(button);  //?
     console.log(whichButton);
     //event.target - figure out which button is clicked
     //get city value 

@@ -11,19 +11,6 @@ header{
     background: linear-gradient(80deg, powderblue 0%, teal 100%);
 }
 
-body{
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-h1{
-    text-align: center;
-    color: white;
-}
-
-h2{
-    color: teal;
-}
-
 p{
     color: rgb(52, 51, 51);
 }
@@ -32,6 +19,7 @@ p{
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    width:auto;
 }
 
 #search-hist {
@@ -45,6 +33,7 @@ p{
 #currentWeather{
     border-color: gray;
     border-style: dashed;
+    border-radius: 4px;
     border-width: 1px;
     width: 65%;
     float: right;
@@ -53,11 +42,15 @@ p{
 }
 
 #days{
-    flex-direction: row;
     position: relative;
-    display: inline-block;
-    width: 450px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
     margin: 75px 20px 20px 20px;
+}
+
+#container2{
+    padding-top: 30px;
 }
 
 .submit{
@@ -102,8 +95,12 @@ p{
     box-shadow: 1px 1px 2px teal;
 }
 
-/* @media screen and (max-width: 1000px) {
-    #days,
-    .search,
-    .container
-} */
+@media screen and (max-width: 1000px) {
+    #days {
+        width:fit-content;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+
+    }
+}
